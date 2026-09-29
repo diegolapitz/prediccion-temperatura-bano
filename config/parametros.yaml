@@ -1,0 +1,50 @@
+# Configuracion central del proyecto.
+#
+# La idea de este archivo es evitar que los filtros importantes queden
+# escritos en muchos lugares distintos del codigo.
+
+rutas:
+  # Generado por src/12_preparar_vitm_consolidada.py.
+  # Une el historico con el CSV recibido hasta agosto de 2026.
+  parquet_vitm: "data/raw/vitm_consolidada_hasta_2026_08.parquet"
+  auxiliar_cubas: "../auxiliar_cubas.csv"
+
+  # Parquet mensuales de alta frecuencia. Agosto se conserva, pero la primera
+  # prueba usa solamente los meses definidos abajo.
+  directorio_his5m: "data/raw/his5m"
+
+filtros_iniciales:
+  # Decision operativa confirmada por Diego.
+  potstate_operacion_normal: 3
+
+  # Las cubas madre se comportan raro durante un tiempo.
+  # Para esta primera version nos quedamos solo con registros "N".
+  valor_cuba_madre_a_conservar: "N"
+
+modelado:
+  # Primera version: usar solo pares de mediciones reales de TB separadas
+  # exactamente por 8 semiturnos.
+  semiturnos_entre_mediciones_tb: 8
+
+  # Ventana acordada para la primera prueba con datos cada cinco minutos.
+  primer_mes_his5m: "2026-01"
+  ultimo_mes_his5m: "2026-07"
+
+validacion_temporal:
+  # Los cortes se aplican sobre la fecha de la TB objetivo.
+  # Train aprende con el pasado.
+  # Validacion compara alternativas en un periodo posterior.
+  # Test queda como prueba final fuera de tiempo.
+  inicio_validacion: "2025-07-01"
+  inicio_test: "2025-11-01"
+
+columnas_clave:
+  cuba: "CUBA"
+  fecha: "FT_TURNO"
+  semiturno: "TU_SEMI_TURNO"
+  estado_operativo: "POTSTATE"
+  cuba_madre: "M_CUBA_MADRE"
+  tb_real: "TB"
+  tb_arrastrada: "TBD"
+  alf3_real: "ALF3"
+  alf3_arrastrada: "ALF3D"

@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Datos, modelos, predicciones y resultados de cualquier origen.
+data/
+models/
+outputs/
+tmp/
+*.csv
+*.parquet
+*.joblib
+*.pkl
+*.zip
+*.xlsx
+*.html
+
+# Secretos y configuración local.
+.env*
+*credencial*
+*secret*
+*.bat
